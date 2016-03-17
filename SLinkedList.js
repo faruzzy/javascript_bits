@@ -93,7 +93,8 @@ p.removeAfter = function(data) {
 	}
 };
 
-p.insertAfter = function(data, node) {
+p.insertAfter = function(data, value) {
+	var node = new Node(value);
 	if (!this.isEmpty()) {
 		var curr = this.head;
 		while (curr.data !== data) {
@@ -140,7 +141,7 @@ list.removeLast();
 list.print();
 list.insertLast('ronaldo');
 list.print();
-list.insertAfter('rhonda', new Node('Pinga'));
+list.insertAfter('rhonda', 'Pinga');
 list.print();
 list.removeAtIndex(0);
 list.print();
