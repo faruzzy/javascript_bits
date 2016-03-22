@@ -1,20 +1,17 @@
-// Node
-function DNode(value) {
-	this.value = value;
-	this.next = null;
+function DNode() {
+	this.value = null;
 	this.prev = null;
+	this.next = null;
+
+	if ( arguments[0] ) this.value = arguments[0];
+	if ( arguments[1] ) this.prev = arguments[1];
+	if ( arguments[2] ) this.next = arguments[2];
 }
 
 function DLinkedList() {
-	this.header = new DNode(null);
-	this.trailer = new DNode(null);
-
-	this.header.next = null;
-	this.header.prev = null;
-
-	this.trailer.next = null;
-	this.trailer.prev = this.header;
-
+	this.header = new DNode();
+	this.trailer = new DNode(null, this.header, null);
+	this.header.next = this.trailer;
 	this.length = 0;
 }
 
@@ -69,7 +66,8 @@ DLinkedList.prototype = {
 			var v = u.next;
 			this.header.next = v;
 			v.prev = this.header;
-			u.next = u.prev = null;
+			u.next = null;
+			u.prev = null;
 			this.length--;
 		}
 	},
