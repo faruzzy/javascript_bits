@@ -11,9 +11,19 @@ function LinkedList() {
 LinkedList.prototype.append = function(u) {
 	if ( u === null )
 		throw Error('Node is null');
-	this.first === null ? this.first = u : ( u.prev = this.last, u.next = null, this.last.next = u );
-
+	this.first === null ? this.first = u : ( u.prev = this.last, 
+		u.next = null, this.last.next = u );
 	this.last = u;
+	this.length++;
+};
+
+LinkedList.prototype.prepend = function(u) {
+	if ( u === null )
+		throw Error('Node is null');
+	this.first === null ? this.first = u : ( u.next = this.head,
+		u.prev = null);
+	this.first.next === null && (this.last = this.first);
+	this.first = u;
 	this.length++;
 };
 
@@ -27,3 +37,25 @@ LinkedList.prototype.insertAfter = function(u, v) {
 	v.prev === this.last && ( this.last = v );
 	this.length++;
 };
+
+LinkedList.prototype.print = function() {
+	var curr = this.first,
+		str = '[ ';
+	
+	while ( curr !== null ) {
+		str += curr.value + ' ';
+		curr = curr.next;
+	}
+	str += ']';
+	console.log(str);
+};
+
+var list = new LinkedList();
+var one = new Node(1);
+var two = new Node(2);
+var three = new Node(3);
+
+list.append(one);
+list.append(two);
+list.prepend(three);
+list.print();
