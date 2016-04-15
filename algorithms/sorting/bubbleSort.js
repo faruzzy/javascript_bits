@@ -1,5 +1,5 @@
 var bubbleSort = function(array) {
-	if (arguments.length === 0 || Array.isArray(array)) {
+	if (arguments.length === 0 || !Array.isArray(array)) {
 		throw new Error();
 	}
 
