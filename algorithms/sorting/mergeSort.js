@@ -4,10 +4,10 @@ var mergeSort = function(array) {
 			r = 0,
 			retArr = [];
 
-		while (retArr.length < (left.length + right.length)) {
+		while (l < left.length && r < right.length)
 			retArr.push((left[l] < right[r]) ? left[l++] : right[r++]);
-		}
-		return retArr;
+
+		return retArr.concat(left.slice(l)).concat(right.slice(r));
 	}
 
 	if (arguments.length === 0 || !Array.isArray(array)) 
@@ -22,4 +22,4 @@ var mergeSort = function(array) {
 	return array;
 };
 
-console.log(mergeSort([3, 2, 9, 10, 1, 7, 8, 5, 3, 4, 6]));
+console.log(mergeSort([3, 2, 9, 10, 1, 7, 8, 5, 4, 6]));
