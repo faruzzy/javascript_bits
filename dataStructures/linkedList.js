@@ -15,6 +15,10 @@ function SLinkedList() {
 SLinkedList.prototype = {
 	constructor: SLinkedList,
 	
+	isEmpty: function() {
+		return this.length === 0;
+	},
+
 	add: function(val) {
 		this.addLast(val);
 	},
@@ -44,12 +48,35 @@ SLinkedList.prototype = {
 		this.length++;
 	},
 
-	removeFirst: function() {
-		if (!this.length)
-			throw new Error('List is Empty');
-		var n = this.head.next;
-		delete this.head;
-		this.head = n;
+	remove: function(index) {
+		if (this.length === 0)
+			throw new Error('List is empty');
+
+		if (index < 0 || index > this.length)
+			throw new Error('Index is out of bounds');
+		
+		var counter = 0;
+		var curr = this.head;
+
+		if (index === 0 && this.length === 1) {
+			this.length = 0;
+			return this.head.value;
+		} else {
+			var e = this.head.value;
+			this.head = this.head.next;
+			this.length--;	
+			return e;
+		}
+
+		if (index === 1 && this.length < 2)
+			return this.head.next.value;
+		
+		while (counter !== (index - 1))
+			curr = curr.next;
+
+		var next = curr.next.next;
+		delete curr.next;
+		curr.next = next;
 		this.length--;
 	},
 
@@ -60,6 +87,12 @@ SLinkedList.prototype = {
 		var ret = this.head.value;
 		this.removeFirst();
 		return ret;
+	},
+
+	removeFirst: function() {
+		if (this.length === 0)
+			throw new Error('List is Empty');
+		this.remove(0);
 	},
 
 	removeLast: function() {
@@ -99,6 +132,10 @@ SLinkedList.prototype = {
 			}
 		}
 		return count;
+	},
+
+	get: function(index) {
+		return this.getNth(index);
 	},
 
 	getNth: function(index) {
